@@ -13,19 +13,9 @@ export class AppDriver {
       .build();
   }
 
-  navigate(path = 'http://localhost:3100') {
-    this.driver.get(path);
+  navigate(path = '/') {
+    this.driver.get(`http://localhost:3100${path}`);
     return this.driver.wait(() => webdriver.until.titleIs('Wix Full Stack Project Boilerplate'));
-  }
-
-  sleep() {
-    return this
-      .driver
-      .wait(() => new Promise(resolve => setTimeout(resolve, 20000)), 30000);
-  }
-
-  getButtons() {
-    return this.driver.findElements(webdriver.By.css('button'));
   }
 
   getTitle() {
