@@ -2,6 +2,7 @@ import {expect} from 'chai';
 import 'babel-polyfill';
 import {beforeAndAfter} from '../environment';
 import puppeteer from 'puppeteer';
+import {testBaseUrl} from '../test-common';
 
 describe('React application', () => {
   let browser, page;
@@ -16,11 +17,10 @@ describe('React application', () => {
     browser.close();
   });
 
-  describe('open page', () => {
-    it('should display title', async () => {
-      await page.goto('http://localhost:3100/');
-      const title = await page.$('h2');
-      expect(await title.evaluate(elem => elem.innerText)).to.eql('Hello World!');
-    });
+  it('should draw "X" when first user plays', async () => {
+    await page.goto(testBaseUrl);
+    const cells = await page.$$('.cell');
+    await cells[0].click();
+    expect(await cells[0].evaluate(elem => elem.innerText)).to.eql('X');
   });
 });
