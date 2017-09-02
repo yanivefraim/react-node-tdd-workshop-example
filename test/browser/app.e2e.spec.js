@@ -19,7 +19,7 @@ describe('React application', () => {
 
   it('should draw "X" when first user plays', async () => {
     await page.goto(testBaseUrl);
-    const cells = await page.$$('.cell');
+    const cells = await page.$$('[data-hook=cell]');
     expect(await cells[0].evaluate(elem => elem.innerText)).to.eql('');
     await cells[0].click();
     expect(await cells[0].evaluate(elem => elem.innerText)).to.eql('X');

@@ -21,7 +21,7 @@ class App extends Component {
           <tbody>
             {this.state.board.map((row, rowIndex) =>
               <tr key={rowIndex}>{row.map((cell, cellIndex) =>
-                <td className={'cell'} key={cellIndex} onClick={() => this.cellClicked(rowIndex, cellIndex)}>{cell}</td>)}
+                <td data-hook="cell" key={cellIndex} onClick={() => this.cellClicked(rowIndex, cellIndex)}>{cell}</td>)}
               </tr>)}
           </tbody>
         </table>
