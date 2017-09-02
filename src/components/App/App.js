@@ -25,6 +25,7 @@ class App extends Component {
               </tr>)}
           </tbody>
         </table>
+        <div data-hook="winner-message">{'X wins!'}</div>
       </div>
     );
   }

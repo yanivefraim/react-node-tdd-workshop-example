@@ -27,4 +27,14 @@ describe('React application', () => {
     await clickCellAt(0);
     expect(await getCellTextAt(0)).to.eql('X');
   });
+
+  it('user "X" should win', async () => {
+    await navigate();
+    await clickCellAt(0);
+    await clickCellAt(3);
+    await clickCellAt(1);
+    await clickCellAt(4);
+    await clickCellAt(2);
+    expect(await (await page.$('[data-hook="winner-message"]')).evaluate(elem => elem.innerText)).to.equal('X wins!');
+  });
 });
