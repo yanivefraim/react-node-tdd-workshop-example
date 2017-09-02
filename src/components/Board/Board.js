@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class Board extends Component {
   constructor() {
@@ -10,6 +11,10 @@ class Board extends Component {
     const board = this.state.board.map((row, rowIndex) =>
       rowIndex !== rowI ? row : row.map((cell, cellIndex) =>
         cellIndex !== cellI ? cell : 'X'));
+
+    if (board[0].every(cell => cell === 'X')) {
+      this.props.onGameOver();
+    }
     this.setState({board});
   }
 
@@ -24,5 +29,9 @@ class Board extends Component {
     </table>);
   }
 }
+
+Board.propTypes = {
+  onGameOver: PropTypes.func
+};
 
 export default Board;

@@ -32,6 +32,7 @@ describe('React application', () => {
     await navigate();
     await clickCellAt(0);
     await clickCellAt(3);
+    expect(await page.$('[data-hook="winner-message"]')).to.equal(null);
     await clickCellAt(1);
     await clickCellAt(4);
     await clickCellAt(2);
