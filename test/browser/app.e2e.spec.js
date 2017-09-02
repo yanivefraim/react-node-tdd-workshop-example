@@ -4,8 +4,12 @@ import {beforeAndAfter} from '../environment';
 import puppeteer from 'puppeteer';
 import {testBaseUrl} from '../test-common';
 
+let browser, page;
+const navigate = (url = '') => page.goto(`${testBaseUrl}${url}`);
+const getCellTextAt = async index => (await page.$$('[data-hook=cell]'))[index].evaluate(elem => elem.innerText);
+const clickCellAt = async index => (await page.$$('[data-hook=cell]'))[index].click();
+
 describe('React application', () => {
-  let browser, page;
   beforeAndAfter();
 
   before(async () => {
@@ -18,10 +22,9 @@ describe('React application', () => {
   });
 
   it('should draw "X" when first user plays', async () => {
-    await page.goto(testBaseUrl);
-    const cells = await page.$$('[data-hook=cell]');
-    expect(await cells[0].evaluate(elem => elem.innerText)).to.eql('');
-    await cells[0].click();
-    expect(await cells[0].evaluate(elem => elem.innerText)).to.eql('X');
+    await navigate();
+    expect(await getCellTextAt(0)).to.eql('');
+    await clickCellAt(0);
+    expect(await getCellTextAt(0)).to.eql('X');
   });
 });
