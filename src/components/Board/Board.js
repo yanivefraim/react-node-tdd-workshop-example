@@ -14,7 +14,7 @@ class Board extends Component {
         cellIndex !== cellI ? cell : currentPlayer));
 
     if (board[0].every(cell => cell === currentPlayer)) {
-      this.props.onGameOver();
+      this.props.onGameOver(currentPlayer);
     }
     this.setState({board, currentPlayer});
   }
