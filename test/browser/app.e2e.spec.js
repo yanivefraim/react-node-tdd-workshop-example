@@ -8,6 +8,8 @@ let browser, page;
 const navigate = (url = '') => page.goto(`${testBaseUrl}${url}`);
 const getCellTextAt = async index => (await page.$$('[data-hook=cell]'))[index].evaluate(elem => elem.innerText);
 const clickCellAt = async index => (await page.$$('[data-hook=cell]'))[index].click();
+const isWinnerMessageVisible = () => page.$('[data-hook="winner-message"]') === null;
+const getWinnerMessageText = async () => (await page.$('[data-hook="winner-message"]')).evaluate(elem => elem.innerText);
 
 describe('React application', () => {
   beforeAndAfter();
@@ -32,10 +34,10 @@ describe('React application', () => {
     await navigate();
     await clickCellAt(0);
     await clickCellAt(3);
-    expect(await page.$('[data-hook="winner-message"]')).to.equal(null);
+    expect(await isWinnerMessageVisible()).to.equal(false);
     await clickCellAt(1);
     await clickCellAt(4);
     await clickCellAt(2);
-    expect(await (await page.$('[data-hook="winner-message"]')).evaluate(elem => elem.innerText)).to.equal('X wins!');
+    expect(await getWinnerMessageText()).to.equal('X wins!');
   });
 });
