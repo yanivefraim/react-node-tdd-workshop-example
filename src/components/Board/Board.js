@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
+const getGameStatus = board => {
+  if (board[0][0] === board[0][1] && board[0][1] === board[0][2]) {
+    return board[0][0];
+  }
+};
+
 class Board extends Component {
   constructor() {
     super();
@@ -13,7 +19,7 @@ class Board extends Component {
       rowIndex !== rowI ? row : row.map((cell, cellIndex) =>
         cellIndex !== cellI ? cell : currentPlayer));
 
-    if (board[0].every(cell => cell === currentPlayer)) {
+    if (getGameStatus(board) === currentPlayer) {
       this.props.onGameOver(currentPlayer);
     }
     this.setState({board, currentPlayer});
