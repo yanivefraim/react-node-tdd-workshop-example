@@ -9,6 +9,9 @@ class Board extends Component {
   }
 
   cellClicked(rowI, cellI) {
+    if (this.state.board[rowI][cellI]) {
+      return;
+    }
     const currentPlayer = this.state.currentPlayer === 'X' ? 'O' : 'X';
     const board = this.state.board.map((row, rowIndex) =>
       rowIndex !== rowI ? row : row.map((cell, cellIndex) =>

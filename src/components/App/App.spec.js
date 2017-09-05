@@ -46,4 +46,11 @@ describe('App', () => {
     clickCellAt(8);
     expect(getWinnerMessageText()).to.equal('it is a tie!');
   });
+
+  it('should not be able to press a non empty cell', () => {
+    render();
+    clickCellAt(3);
+    clickCellAt(3);
+    expect(getCellTextAt(3)).to.equal('X');
+  });
 });
