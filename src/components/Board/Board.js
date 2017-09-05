@@ -5,27 +5,27 @@ import {getGameStatus} from '../../gameService';
 class Board extends Component {
   constructor() {
     super();
-    this.state = {board: [['', '', ''], ['', '', ''], ['', '', '']], currentPlayer: 'O'};
+    this.state = {board: [['', '', ''], ['', '', ''], ['', '', '']], nextPlayer: 'X'};
   }
 
-  getUpdatedBoardState({board, currentPlayer, rowI, cellI}) {
+  getUpdatedBoardState({board, nextPlayer, rowI, cellI}) {
     return board.map((row, rowIndex) =>
     rowIndex !== rowI ? row : row.map((cell, cellIndex) =>
-      cellIndex !== cellI ? cell : currentPlayer));
+      cellIndex !== cellI ? cell : nextPlayer));
   }
 
   cellClicked(rowI, cellI) {
     if (this.state.board[rowI][cellI]) {
       return;
     }
-    const currentPlayer = this.state.currentPlayer === 'X' ? 'O' : 'X';
-    const board = this.getUpdatedBoardState({board: this.state.board, currentPlayer, rowI, cellI});
-
+    const board = this.getUpdatedBoardState({board: this.state.board, nextPlayer: this.state.nextPlayer, rowI, cellI});
     const gameStatus = getGameStatus(board);
     if (gameStatus) {
       this.props.onGameOver(gameStatus);
     }
-    this.setState({board, currentPlayer});
+    const newNextPlayer = this.state.nextPlayer === 'X' ? 'O' : 'X';
+    this.props.onCellClicked(newNextPlayer);
+    this.setState({board, nextPlayer: newNextPlayer});
   }
 
   render() {
@@ -41,7 +41,8 @@ class Board extends Component {
 }
 
 Board.propTypes = {
-  onGameOver: PropTypes.func
+  onGameOver: PropTypes.func,
+  onCellClicked: PropTypes.func
 };
 
 export default Board;

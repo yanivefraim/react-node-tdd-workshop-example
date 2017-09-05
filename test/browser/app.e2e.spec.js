@@ -9,7 +9,8 @@ const navigate = (url = '') => page.goto(`${testBaseUrl}${url}`);
 const getCellTextAt = async index => (await page.$$('[data-hook=cell]'))[index].evaluate(elem => elem.innerText);
 const clickCellAt = async index => (await page.$$('[data-hook=cell]'))[index].click();
 const isWinnerMessageVisible = () => page.$('[data-hook="winner-message"]') === null;
-const getWinnerMessageText = async () => (await page.$('[data-hook="winner-message"]')).evaluate(elem => elem.innerText);
+const getWinnerMessageText = () => page.$eval('[data-hook="winner-message"]', elem => elem.innerText);
+const getNextPlayerName = () => page.$eval('.next', elem => elem.innerText);
 
 describe('React application', () => {
   beforeAndAfter();
@@ -39,5 +40,14 @@ describe('React application', () => {
     await clickCellAt(4);
     await clickCellAt(2);
     expect(await getWinnerMessageText()).to.equal('X wins!');
+  });
+
+  it('should show next player after each click', async () => {
+    await navigate();
+    expect(await getNextPlayerName()).to.equal('X');
+    await clickCellAt(3);
+    expect(await getNextPlayerName()).to.equal('O');
+    await clickCellAt(2);
+    expect(await getNextPlayerName()).to.equal('X');
   });
 });

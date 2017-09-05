@@ -1,20 +1,15 @@
-.root {
-  text-align: center;
-}
-
-.header {
-  background-color: #222;
-  padding: 10px;
-  color: white;
-  font-size: 20pt;
-}
-
-.intro {
-  font-size: 15pt;
-}
-
 td {
   border: 1px solid black;
   height: 20px;
   width: 20px;
+}
+
+.player {
+  border: solid 1px black;
+  width: 100px;
+  display: inline-block;
+}
+
+.next {
+  background-color: grey;
 }
