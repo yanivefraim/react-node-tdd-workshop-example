@@ -32,4 +32,18 @@ describe('App', () => {
     clickCellAt(2);
     expect(getWinnerMessageText()).to.equal('O wins!');
   });
+
+  it('should have a tie', async () => {
+    render();
+    clickCellAt(3);
+    clickCellAt(0);
+    clickCellAt(4);
+    clickCellAt(5);
+    clickCellAt(1);
+    clickCellAt(2);
+    clickCellAt(6);
+    clickCellAt(7);
+    clickCellAt(8);
+    expect(getWinnerMessageText()).to.equal('it is a tie!');
+  });
 });

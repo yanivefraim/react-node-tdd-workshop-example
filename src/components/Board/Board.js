@@ -18,6 +18,9 @@ export const getGameStatus = board => {
   if (isWins('O')) {
     return 'O';
   }
+  if (board.every(row => row.every(cell => !!cell))) {
+    return '-';
+  }
 };
 
 class Board extends Component {
@@ -32,8 +35,9 @@ class Board extends Component {
       rowIndex !== rowI ? row : row.map((cell, cellIndex) =>
         cellIndex !== cellI ? cell : currentPlayer));
 
-    if (getGameStatus(board) === currentPlayer) {
-      this.props.onGameOver(currentPlayer);
+    const gameStatus = getGameStatus(board);
+    if (gameStatus) {
+      this.props.onGameOver(gameStatus);
     }
     this.setState({board, currentPlayer});
   }

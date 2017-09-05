@@ -7,11 +7,15 @@ class App extends Component {
     super();
     this.state = {winner: ''};
   }
+
+  getWinnerMessage() {
+    return this.state.winner !== '-' ? `${this.state.winner} wins!` : 'it is a tie!';
+  }
   render() {
     return (
       <div data-hook="app" className={s.root}>
         <Board onGameOver={winner => this.setState({winner})}/>
-        {this.state.winner && <div data-hook="winner-message">{`${this.state.winner} wins!`}</div>}
+        {this.state.winner && <div data-hook="winner-message">{this.getWinnerMessage()}</div>}
       </div>
     );
   }

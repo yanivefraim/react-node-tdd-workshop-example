@@ -57,4 +57,13 @@ describe('getGameStatus', () => {
                    [symbol, '', '']];
     expect(getGameStatus(board)).to.equal(symbol);
   });
+
+  it('should return a tie', () => {
+    const symbolX = 'X';
+    const symbolO = 'O';
+    const board = [[symbolO, symbolX, symbolO],
+                   [symbolO, symbolX, symbolX],
+                   [symbolX, symbolO, symbolX]];
+    expect(getGameStatus(board)).to.equal('-');
+  });
 });
