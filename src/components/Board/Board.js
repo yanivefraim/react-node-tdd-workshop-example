@@ -8,14 +8,18 @@ class Board extends Component {
     this.state = {board: [['', '', ''], ['', '', ''], ['', '', '']], currentPlayer: 'O'};
   }
 
+  getUpdatedBoardState({board, currentPlayer, rowI, cellI}) {
+    return board.map((row, rowIndex) =>
+    rowIndex !== rowI ? row : row.map((cell, cellIndex) =>
+      cellIndex !== cellI ? cell : currentPlayer));
+  }
+
   cellClicked(rowI, cellI) {
     if (this.state.board[rowI][cellI]) {
       return;
     }
     const currentPlayer = this.state.currentPlayer === 'X' ? 'O' : 'X';
-    const board = this.state.board.map((row, rowIndex) =>
-      rowIndex !== rowI ? row : row.map((cell, cellIndex) =>
-        cellIndex !== cellI ? cell : currentPlayer));
+    const board = this.getUpdatedBoardState({board: this.state.board, currentPlayer, rowI, cellI});
 
     const gameStatus = getGameStatus(board);
     if (gameStatus) {
