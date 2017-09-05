@@ -1,5 +1,5 @@
 import {expect} from 'chai';
-import {getGameStatus} from './Board';
+import {getGameStatus} from './gameService';
 
 describe('getGameStatus', () => {
   it('"X" should win', () => {

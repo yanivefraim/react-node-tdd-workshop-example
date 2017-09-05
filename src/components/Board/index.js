@@ -1,1 +1,1 @@
-export {default, getGameStatus} from './Board';
+export {default} from './Board';
