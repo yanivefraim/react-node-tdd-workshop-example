@@ -2,10 +2,16 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {getGameStatus} from '../../gameService';
 
+const emptyBoard = [['', '', ''], ['', '', ''], ['', '', '']];
+
 class Board extends Component {
   constructor() {
     super();
-    this.state = {board: [['', '', ''], ['', '', ''], ['', '', '']], nextPlayer: 'X'};
+    this.state = {board: emptyBoard, nextPlayer: 'X'};
+  }
+
+  newGame() {
+    this.setState({board: emptyBoard, nextPlayer: 'X'});
   }
 
   getUpdatedBoardState({board, nextPlayer, rowI, cellI}) {

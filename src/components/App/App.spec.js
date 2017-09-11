@@ -10,6 +10,24 @@ const render = () => wrapper = mount(
   <App/>, {attachTo: document.createElement('div')}
 );
 const getWinnerMessageText = () => wrapper.find('[data-hook="winner-message"]').text();
+const getXPlayerWins = () => wrapper.find('[data-hook="x-win-count"]').text();
+const getOPlayerWins = () => wrapper.find('[data-hook="o-win-count"]').text();
+const makeOWin = () => {
+  clickCellAt(3);
+  clickCellAt(0);
+  clickCellAt(4);
+  clickCellAt(1);
+  clickCellAt(6);
+  clickCellAt(2);
+};
+const makeXWin = () => {
+  clickCellAt(0);
+  clickCellAt(4);
+  clickCellAt(1);
+  clickCellAt(6);
+  clickCellAt(2);
+};
+const clickNewGame = () => wrapper.find('[data-hook="new-game"]').simulate('click');
 
 describe('App', () => {
   afterEach(() => wrapper.detach());
@@ -24,12 +42,7 @@ describe('App', () => {
 
   it('user "O" should win', () => {
     render();
-    clickCellAt(3);
-    clickCellAt(0);
-    clickCellAt(4);
-    clickCellAt(1);
-    clickCellAt(6);
-    clickCellAt(2);
+    makeOWin();
     expect(getWinnerMessageText()).to.equal('O wins!');
   });
 
@@ -52,5 +65,18 @@ describe('App', () => {
     clickCellAt(3);
     clickCellAt(3);
     expect(getCellTextAt(3)).to.equal('X');
+  });
+
+  it('should show number of winning for each player', () => {
+    render();
+    expect(getOPlayerWins()).to.equal('0');
+    makeOWin();
+    expect(getOPlayerWins()).to.equal('1');
+    clickNewGame();
+    makeXWin();
+    expect(getXPlayerWins()).to.equal('1');
+    clickNewGame();
+    makeOWin();
+    expect(getOPlayerWins()).to.equal('2');
   });
 });

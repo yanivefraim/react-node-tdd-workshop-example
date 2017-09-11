@@ -6,7 +6,18 @@ import './App.scss';
 class App extends Component {
   constructor() {
     super();
-    this.state = {winner: '', nextPlayer: 'X'};
+    this.state = {winner: '', nextPlayer: 'X', winCount: {x: 0, o: 0}};
+  }
+
+  onGameOver(winner) {
+    const winCount = this.state.winCount;
+    winner === 'X' ? winCount.x++ : winCount.o++;
+    this.setState({winner, winCount});
+  }
+
+  onNewGame() {
+    this.board.newGame();
+    this.setState({winner: '', nextPlayer: 'X'});
   }
 
   getWinnerMessage() {
@@ -16,9 +27,10 @@ class App extends Component {
 
     return (
       <div data-hook="app" className={'root'}>
-        <Players nextPlayer={this.state.nextPlayer}/>
-        <Board onGameOver={winner => this.setState({winner})} onCellClicked={nextPlayer => this.setState({nextPlayer})}/>
+        <Players nextPlayer={this.state.nextPlayer} winCount={this.state.winCount}/>
+        <Board ref={board => this.board = board} onGameOver={winner => this.onGameOver(winner)} onCellClicked={nextPlayer => this.setState({nextPlayer})}/>
         {this.state.winner && <div data-hook="winner-message">{this.getWinnerMessage()}</div>}
+        <button data-hook="new-game" onClick={() => this.onNewGame()}>{'New Game'}</button>
       </div>
     );
   }
