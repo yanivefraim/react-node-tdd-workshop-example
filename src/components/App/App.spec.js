@@ -27,6 +27,19 @@ const makeXWin = () => {
   clickCellAt(6);
   clickCellAt(2);
 };
+
+const makeATie = () => {
+  clickCellAt(3);
+  clickCellAt(0);
+  clickCellAt(4);
+  clickCellAt(5);
+  clickCellAt(1);
+  clickCellAt(2);
+  clickCellAt(6);
+  clickCellAt(7);
+  clickCellAt(8);
+};
+
 const clickNewGame = () => wrapper.find('[data-hook="new-game"]').simulate('click');
 
 describe('App', () => {
@@ -48,15 +61,7 @@ describe('App', () => {
 
   it('should have a tie', async () => {
     render();
-    clickCellAt(3);
-    clickCellAt(0);
-    clickCellAt(4);
-    clickCellAt(5);
-    clickCellAt(1);
-    clickCellAt(2);
-    clickCellAt(6);
-    clickCellAt(7);
-    clickCellAt(8);
+    makeATie();
     expect(getWinnerMessageText()).to.equal('it is a tie!');
   });
 
@@ -78,5 +83,12 @@ describe('App', () => {
     clickNewGame();
     makeOWin();
     expect(getOPlayerWins()).to.equal('2');
+  });
+
+  it('should not add win count for tie', () => {
+    render();
+    makeATie();
+    expect(getOPlayerWins()).to.equal('0');
+    expect(getXPlayerWins()).to.equal('0');
   });
 });

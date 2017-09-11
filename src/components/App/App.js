@@ -11,7 +11,11 @@ class App extends Component {
 
   onGameOver(winner) {
     const winCount = this.state.winCount;
-    winner === 'X' ? winCount.x++ : winCount.o++;
+    if (winner === 'X') {
+      winCount.x++;
+    } else if (winner === 'O') {
+      winCount.o++;
+    }
     this.setState({winner, winCount});
   }
 
