@@ -8,7 +8,7 @@ let browser, page;
 const navigate = (url = '') => page.goto(`${testBaseUrl}${url}`);
 const getCellTextAt = async index => (await page.$$('[data-hook=cell]'))[index].evaluate(elem => elem.innerText);
 const clickCellAt = async index => (await page.$$('[data-hook=cell]'))[index].click();
-const isWinnerMessageVisible = () => page.$('[data-hook="winner-message"]') === null;
+const isWinnerMessageVisible = async () => (await page.$('[data-hook="winner-message"]')) !== null;
 const getWinnerMessageText = () => page.$eval('[data-hook="winner-message"]', elem => elem.innerText);
 const getNextPlayerName = () => page.$eval('.next', elem => elem.innerText);
 
