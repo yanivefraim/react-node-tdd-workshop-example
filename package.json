@@ -33,7 +33,7 @@
     "yoshi": "latest"
   },
   "dependencies": {
-    "axios": "^0.16.1",
+    "axios": "^0.21.1",
     "babel-polyfill": "^6.9.1",
     "bluebird": "^3.4.7",
     "classnames": "^2.2.5",
